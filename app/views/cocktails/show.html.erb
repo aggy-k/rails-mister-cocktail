@@ -1,0 +1,12 @@
+<h2><%= @cocktail.name %></h2>
+<p>Description: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis consequuntur sit molestias, ab inventore. Velit ex perferendis aut dolorem reiciendis voluptatum, impedit ullam. Recusandae, minus. Magni excepturi nam, minima perferendis. </p>
+<p>Edit - Delete</p>
+
+<h3>Ingredients</h3>
+<% @cocktail.doses.each do |d| %>
+  <p><strong><%= d.ingredient.name %></strong> - <%= d.description %>
+  <small>(<%= link_to "Delete", dose_path(d), method: :delete, data: {confirm: "Delete?"} %>)</small>
+  </p>
+<% end %>
+<%= link_to "Add an ingredient", new_cocktail_dose_path(@cocktail) %>
+

@@ -1,7 +1,33 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+require 'open-uri'
+require 'json'
+
+puts "Deleting all records of ingredients..."
+Ingredient.destroy_all if Rails.env.development?
+
+puts "Seeding ingredients..."
+
+url = "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list"
+file = open(url).read
+parsed = JSON.parse(file)
+
+parsed["drinks"].each do |i|
+  Ingredient.create!(name: i["strIngredient1"])
+end
+
+puts "Created #{Ingredient.count} ingredient(s)"
+
+
+puts "Deleting all records of cocktails..."
+Cocktail.destroy_all if Rails.env.development?
+
+puts "Seeding cocktails..."
+
+url_c = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic"
+file_c = open(url_c).read
+parsed_c = JSON.parse(file_c)
+
+parsed_c["drinks"].first(20).each do |i|
+  Cocktail.create!(name: i["strDrink"], image: i["strDrinkThumb"])
+end
+
+puts "Created #{Cocktail.count} cocktail(s)"
