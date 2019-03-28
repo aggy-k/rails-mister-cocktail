@@ -1,5 +1,5 @@
 <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://images.unsplash.com/photo-1497990902153-c6d041aad676?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1614&q=80);">
-  <div class="row justify-content-around align-items-start m-3 p-3 ">
+  <div class="container row justify-content-around align-items-center">
 
     <div>
       <h1>Let's Drink Moderately~!!</h1>
@@ -19,23 +19,9 @@
       </div>
     </div>
 
-    <div class="box-top-pick p-4">
+    <div class="box-top-pick">
       <h2>Cocktail of the Month</h2>
-      <% @c = @cocktails.sample  %>
-      <h3><%= link_to @c.name, cocktail_path(@c) %>
-        <% 5.times do %>
-          <span style="color: orange; font-size: 18px;"><i class="fas fa-star"></i></span>
-        <% end %>
-      </h3>
-      <div class="row justify-content-between p-3">
-        <ul>
-          <% @c.doses.each do |d| %>
-            <li><%= d.ingredient.name %> - <%= d.description %></li>
-          <% end %>
-        </ul>
-        <%= image_tag @c.image, height:200, alt: "alttext" %>
-      </div>
-
+      <h3><%= @cocktails.sample.name %></h3>
 
     </div>
 
@@ -44,13 +30,3 @@
 
   </div>
 </div>
-
-
-<% @cocktails.each do |c| %>
-  <p><%= link_to c.name, cocktail_path(c) %></p>
-  <p><%= c.image %></p>
-  <p><%= link_to "Delete", cocktail_path(c), method: :delete, data: { confirm: "Delete?" } %></p>
-  <p><%= link_to "Edit", edit_cocktail_path(c) %></p>
-<% end %>
-
-<%= link_to "Create new cocktail", new_cocktail_path %>

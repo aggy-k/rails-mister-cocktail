@@ -18,7 +18,6 @@ class DosesController < ApplicationController
   def create
     @dose = Dose.new(dose_params)
     @dose.cocktail = @cocktail
-    # @dose.ingredient = Ingredient.find_by(name: params[:ingredient])
     @dose.save
 
     if @dose.save

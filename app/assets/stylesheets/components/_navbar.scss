@@ -1,6 +1,7 @@
 .navbar-lewagon {
   justify-content: space-between;
-  background: white;
+  // background: white;
+  background: transparent;
 }
 
 .navbar-lewagon .navbar-collapse {
@@ -8,5 +9,11 @@
 }
 
 .navbar-lewagon .navbar-brand img {
-  width: 40px;
+  width: 60px;
+}
+
+.navbar-span {
+  font-family: "Amatic SC";
+  font-size: 48px;
+  color: #FFF;
 }
