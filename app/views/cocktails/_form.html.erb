@@ -1,6 +1,19 @@
-<%= simple_form_for(@cocktail) do |f| %>
-    <%= f.input :name %>
-    <%= f.input :image %>
-    <%= f.submit %>
-<% end %>
+<div class="index-content">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-lg-6">
+        <div class="box-outline-white" style="color: white;>
+          <%= simple_form_for(@cocktail) do |f| %>
+              <%= f.input :name %>
+              <%= f.input :image %>
+              <%= f.input :image_cache, as: :hidden %>
+              <%= f.submit %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 

@@ -1,58 +1,58 @@
-<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://images.unsplash.com/photo-1497990902153-c6d041aad676?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1614&q=80);">
-  <div class="row justify-content-around align-items-start m-3 p-3 ">
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://images.unsplash.com/photo-1505868423131-d426643afa77?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1502&q=80);">
+  <!-- <h2>Be prepared for the apocalypse</h2> -->
+  <div class="row justify-content-left align-items-start m-3 p-4">
 
-    <div>
-      <h1>Let's Drink Moderately~!!</h1>
-      <p></p>
-      <!-- <a class="btn btn-warning" href="#">See All Cocktails</a> -->
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Find a cocktail.." aria-label="Search">
-        <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
-      </form>
-      <div class="form-box my-3">
-        <h2>Add a cocktail!</h2>
-        <%= simple_form_for(@cocktail) do |f| %>
-          <%= f.input :name, label_html: { class: 'form-label' } %>
-          <%= f.input :image, label_html: { class: 'form-label' } %>
-          <%= f.submit "Add a drink!", class: "btn btn-outline-warning my-2 my-sm-0" %>
+      <div class="box-pick p-4 m-2">
+        <h4>Cocktail of the Month</h4>
+        <% if !@cocktails.sample.nil? %>
+          <% @c = @cocktails.sample  %>
+          <h5><%= link_to @c.name, cocktail_path(@c) %></h5>
+          <div class="card-img" style="background-image: url('<%= cl_image_path @c.image %>');">
+          </div>
         <% end %>
       </div>
-    </div>
 
-    <div class="box-top-pick p-4">
-      <h2>Cocktail of the Month</h2>
-      <% if !@cocktails.sample.nil? %>
-        <% @c = @cocktails.sample  %>
-        <h3><%= link_to @c.name, cocktail_path(@c) %>
-          <% 5.times do %>
-            <span style="color: orange; font-size: 18px;"><i class="fas fa-star"></i></span>
-          <% end %>
-        </h3>
-        <div class="row justify-content-between p-3">
-          <ul>
-            <% @c.doses.each do |d| %>
-              <li><%= d.ingredient.name %> - <%= d.description %></li>
-            <% end %>
-          </ul>
-          <%= image_tag @c.image, height:200, alt: "alttext" %>
+      <div class="box-pick p-4 m-2">
+        <h4>New cocktail!</h4>
+        <% if !@cocktails.last.nil? %>
+          <% @l = @cocktails.last  %>
+          <h5><%= link_to @l.name, cocktail_path(@l) %></h5>
+          <div class="card-img" style="background-image: url('<%= cl_image_path @l.image %>');">
+          </div>
+        <% end %>
+      </div>
+  </div>
+  <div class="m-3 p-4">
+    <h2><a class="ml-2" href="#all">See all cocktails..</a></h2>
+
+  </div>
+
+</div>
+
+<div class="index-content">
+  <div class="container">
+  <h2 id="all">All Cocktails</h2>
+    <div class="row justify-content-around">
+      <% @cocktails.each do |c| %>
+      <div class="col-12 col-lg-4 mb-3">
+        <div class="card-trip">
+          <%= cl_image_tag(c.image, crop: :fill) %>
+          <div class="card-trip-infos">
+            <div>
+              <h2><%= link_to c.name, cocktail_path(c) %></h2>
+              <p>Short description here!</p>
+            </div>
+            <h2 class="card-trip-pricing">£99.99</h2>
+            <img src='https://kitt.lewagon.com/placeholder/users/krokrob' class="card-trip-user avatar-bordered"/>
+          </div>
         </div>
+
+      </div>
       <% end %>
 
-
     </div>
-
-
 
 
   </div>
+
 </div>
-
-
-<% @cocktails.each do |c| %>
-  <p><%= link_to c.name, cocktail_path(c) %></p>
-  <p><%= c.image %></p>
-  <p><%= link_to "Delete", cocktail_path(c), method: :delete, data: { confirm: "Delete?" } %></p>
-  <p><%= link_to "Edit", edit_cocktail_path(c) %></p>
-<% end %>
-
-<%= link_to "Create new cocktail", new_cocktail_path %>

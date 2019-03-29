@@ -1,12 +1,49 @@
-<h2><%= @cocktail.name %></h2>
-<p>Description: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis consequuntur sit molestias, ab inventore. Velit ex perferendis aut dolorem reiciendis voluptatum, impedit ullam. Recusandae, minus. Magni excepturi nam, minima perferendis. </p>
-<p>Edit - Delete</p>
+<div class="banner-show" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://images.unsplash.com/photo-1505868423131-d426643afa77?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1502&q=80);">
+</div>
 
-<h3>Ingredients</h3>
-<% @cocktail.doses.each do |d| %>
-  <p><strong><%= d.ingredient.name %></strong> - <%= d.description %>
-  <small>(<%= link_to "Delete", dose_path(d), method: :delete, data: {confirm: "Delete?"} %>)</small>
-  </p>
-<% end %>
-<%= link_to "Add an ingredient", new_cocktail_dose_path(@cocktail) %>
+<div class="container my-3">
+  <div class="row justify-content-around align-items-start" style="color: white;">
+    <div class="col-12 col-lg-8">
+      <h2><%= @cocktail.name %></h2>
+      <p>Description: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis consequuntur sit molestias, ab inventore. Velit ex perferendis aut dolorem reiciendis voluptatum, impedit ullam. Recusandae, minus. Magni excepturi nam, minima perferendis. </p>
+      <p>
+        <%= link_to edit_cocktail_path(@cocktail) do %>
+          <i class="fas fa-edit"></i>
+        <% end %>
+
+        <%= link_to cocktail_path(@cocktail), method: :delete, data: { confirm: "Delete this cocktail?" } do %>
+          <i class="fas fa-trash-alt"></i>
+        <% end %>
+      </p>
+
+      <h3>Ingredients</h3>
+      <ul>
+        <% @cocktail.doses.each do |d| %>
+          <li><%= d.ingredient.name %> - <%= d.description %>
+          <%= link_to dose_path(d), method: :delete, data: {confirm: "Delete?"} do %>
+            <small><i class="fas fa-trash-alt"></i></small>
+          <% end %>
+          </li>
+        <% end %>
+
+      </ul>
+    </div>
+
+    <!-- for the form  -->
+    <div class="col-12 col-lg-4">
+      <div class="box-outline-white">
+        <%= simple_form_for [@cocktail, @dose] do |f| %>
+          <%= f.input :description %>
+          <%= f.association :ingredient %>
+          <%= f.submit %>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
 
