@@ -21,20 +21,22 @@
 
     <div class="box-top-pick p-4">
       <h2>Cocktail of the Month</h2>
-      <% @c = @cocktails.sample  %>
-      <h3><%= link_to @c.name, cocktail_path(@c) %>
-        <% 5.times do %>
-          <span style="color: orange; font-size: 18px;"><i class="fas fa-star"></i></span>
-        <% end %>
-      </h3>
-      <div class="row justify-content-between p-3">
-        <ul>
-          <% @c.doses.each do |d| %>
-            <li><%= d.ingredient.name %> - <%= d.description %></li>
+      <% if !@cocktails.sample.nil? %>
+        <% @c = @cocktails.sample  %>
+        <h3><%= link_to @c.name, cocktail_path(@c) %>
+          <% 5.times do %>
+            <span style="color: orange; font-size: 18px;"><i class="fas fa-star"></i></span>
           <% end %>
-        </ul>
-        <%= image_tag @c.image, height:200, alt: "alttext" %>
-      </div>
+        </h3>
+        <div class="row justify-content-between p-3">
+          <ul>
+            <% @c.doses.each do |d| %>
+              <li><%= d.ingredient.name %> - <%= d.description %></li>
+            <% end %>
+          </ul>
+          <%= image_tag @c.image, height:200, alt: "alttext" %>
+        </div>
+      <% end %>
 
 
     </div>
