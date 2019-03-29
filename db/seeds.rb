@@ -1,20 +1,20 @@
 require 'open-uri'
 require 'json'
 
-# puts "Deleting all records of ingredients..."
-# Ingredient.destroy_all if Rails.env.development?
+puts "Deleting all records of ingredients..."
+Ingredient.destroy_all if Rails.env.development?
 
-# puts "Seeding ingredients..."
+puts "Seeding ingredients..."
 
-# url = "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list"
-# file = open(url).read
-# parsed = JSON.parse(file)
+url = "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list"
+file = open(url).read
+parsed = JSON.parse(file)
 
-# parsed["drinks"].each do |i|
-#   Ingredient.create!(name: i["strIngredient1"])
-# end
+parsed["drinks"].each do |i|
+  Ingredient.create!(name: i["strIngredient1"])
+end
 
-# puts "Created #{Ingredient.count} ingredient(s)"
+puts "Created #{Ingredient.count} ingredient(s)"
 
 
 puts "Deleting all records of cocktails..."
@@ -35,4 +35,4 @@ end
 puts "Created #{Cocktail.count} cocktail(s)"
 
 
-# puts "Converted images as remote url"
+puts "Converted images as remote url"
